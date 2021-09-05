@@ -1,38 +1,33 @@
 package me.tvhook.tvwebhook.domain.webhook;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@ToString
-@Getter
-@Setter
+@Data
 public class Webhook {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private LocalDateTime time;
+    private String username;
 
     private LocalDateTime candleTime;
 
-    private String ticker;
+    private LocalDateTime time;
+
+    private String ticker; //BTCKRW
 
     private String exchange;
-
-    private String orderAction;
-
-    private String orderId;
-
-    private String orderPrice;
-
-    private String message;
+    private String interval;
+    private Strategy strategy;
 
 
 }
