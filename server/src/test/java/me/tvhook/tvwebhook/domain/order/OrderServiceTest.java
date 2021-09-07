@@ -40,7 +40,7 @@ class OrderServiceTest {
 
         System.out.println("requestDto = " + requestDto);
 
-        orderService.create(requestDto);
+//        orderService.create(requestDto);
 
     }
 
@@ -58,7 +58,7 @@ class OrderServiceTest {
 
         System.out.println("requestDto = " + requestDto);
 
-        orderService.create(requestDto);
+//        orderService.create(requestDto);
 
     }
 

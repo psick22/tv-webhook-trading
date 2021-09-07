@@ -7,10 +7,11 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     generate-ddl: true
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true
 
 
