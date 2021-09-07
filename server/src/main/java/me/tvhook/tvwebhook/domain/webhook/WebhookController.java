@@ -77,7 +77,7 @@ public class WebhookController {
 //
 //        }
 
-        User user = userRepository.findByUsername(webhook.getUsername()).get(0);
+        User user = userRepository.findByUsername(webhook.getUsername());
         UpbitOrderChanceResponseDto chance = upbit.orderChance(user, market);
 
         BigDecimal fee = null;
