@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "react-app"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
