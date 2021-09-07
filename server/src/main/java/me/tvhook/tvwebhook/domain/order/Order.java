@@ -24,7 +24,6 @@ import me.tvhook.tvwebhook.domain.trade.Trade;
 import me.tvhook.tvwebhook.domain.user.User;
 
 @Entity
-@Data
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {

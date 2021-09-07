@@ -1,6 +1,7 @@
 package me.tvhook.tvwebhook.domain.order;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.tvhook.tvwebhook.api.Upbit;
@@ -31,15 +32,38 @@ public class OrderService {
 
     }
 
-    public Long create(User user, OrderRequestDto orderReq) throws NoSuchAlgorithmException {
+    public OrderDto create(OrderRequestDto orderReq) throws NoSuchAlgorithmException {
+
+        User user = userService.findById(orderReq.getUserId());
 
         UpbitOrderResponseDto response = upbit.postOrder(user, orderReq);
+
         Order newOrder = modelMapper.map(response, Order.class);
-        orderRepository.save(newOrder);
+        Order savedOrder = orderRepository.save(newOrder);
+
+        OrderDto orderDto = modelMapper.map(savedOrder, OrderDto.class);
 
         log.info("order response : {}", newOrder);
-        return newOrder.getId();
-//        saveOrder(user, orderRes);
+        return orderDto;
+    }
+
+    public OrderDto create(User user, OrderRequestDto orderReq) throws NoSuchAlgorithmException {
+
+        UpbitOrderResponseDto response = upbit.postOrder(user, orderReq);
+
+        Order newOrder = modelMapper.map(response, Order.class);
+        Order savedOrder = orderRepository.save(newOrder);
+
+        OrderDto orderDto = modelMapper.map(savedOrder, OrderDto.class);
+
+        log.info("order response : {}", newOrder);
+        return orderDto;
+    }
+
+    public List<OrderDto> searchOrderLists(OrderSearchDto orderSearchDto){
+
+        return orderRepository.findAllByConditions(orderSearchDto);
+
     }
 
 

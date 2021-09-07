@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.4.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
     id 'java'
 }
 
@@ -29,8 +30,27 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:2.4.4'
     implementation 'com.auth0:java-jwt:3.18.1'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'com.querydsl:querydsl-jpa'
 }
 
 test {
     useJUnitPlatform()
+}
+
+
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl{
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets{
+    main.java.srcDir querydslDir
+}
+
+configurations{
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
 }

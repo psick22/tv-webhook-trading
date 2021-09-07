@@ -32,15 +32,17 @@ class OrderServiceTest {
     public void order_market_bid_success() throws NoSuchAlgorithmException {
         OrderRequestDto requestDto = OrderRequestDto.builder()
             .userId(9999L)
-            .market("KRW-VET")
+            .market("KRW-BTC")
             .orderType(OrderType.price)
             .side(OrderSide.bid)
-            .price("5100")
+            .price("50000")
             .build();
 
         System.out.println("requestDto = " + requestDto);
 
-//        orderService.create(requestDto);
+        OrderDto orderResponse = orderService.create(requestDto);
+
+        System.out.println("orderResponse = " + orderResponse);
 
     }
 
