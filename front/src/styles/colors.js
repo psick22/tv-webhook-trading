@@ -1,0 +1,1 @@
+export const MAIN_DARK = "#27282C";

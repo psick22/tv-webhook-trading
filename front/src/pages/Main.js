@@ -2,7 +2,9 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import HomePage from './HomePage/HomePage';
-import Navbar from '../components/global/Navbar';
+import Navbar from '../common/components/Navbar';
+import CreateWebhookPage from './CreateWebhookPage/CreateWebhookPage';
+
 const { Content, Footer } = Layout;
 
 
@@ -17,6 +19,7 @@ function Main(props) {
         }}>
           <Switch>
             <Route path='/home' component={HomePage} />
+            <Route path='/webhook' component={CreateWebhookPage} />
           </Switch>
         </Layout>
       </Content>

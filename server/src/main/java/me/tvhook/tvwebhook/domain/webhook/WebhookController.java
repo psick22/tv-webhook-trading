@@ -14,6 +14,7 @@ import me.tvhook.tvwebhook.domain.order.OrderService;
 import me.tvhook.tvwebhook.domain.user.User;
 import me.tvhook.tvwebhook.domain.user.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/webhook")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WebhookController {
 
     private final UserRepository userRepository;
@@ -37,14 +39,18 @@ public class WebhookController {
     public ResponseEntity<WebhookDto> getWebhookTemplate(
         @RequestParam(name = "type") WebhookType type,
         @RequestParam(name = "username") String username,
-        @RequestParam(name = "strategyName") String strategyName,
+        @RequestParam(name = "strategyName", required = false) String strategyName,
         @RequestParam(name = "bidAmount") String bidAmount,
         @RequestParam(name = "askRate") String askRate) {
 
         WebhookDto template = webhookService.generateMessageTemplate(username, type, strategyName,
             bidAmount, askRate);
 
+        if (type.equals(WebhookType.STRATEGY) && strategyName == null) {
+            template.setStrategyName("My Strategy");
+        }
         return ResponseEntity.ok(template);
+
     }
 
     /**
