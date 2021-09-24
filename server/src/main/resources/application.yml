@@ -22,3 +22,8 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+
+token:
+  expiration_time: 86400000
+  secret_key: userToken

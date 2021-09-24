@@ -3,6 +3,7 @@ package me.tvhook.tvwebhook.common.config;
 import lombok.RequiredArgsConstructor;
 import me.tvhook.tvwebhook.domain.user.UserService;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
+    private final Environment env;
 
     /**
      * 권한
@@ -23,7 +25,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.antMatcher("/**").addFilter(getAuthenticationFilter());
+
+        http.authorizeRequests().antMatchers("/**").permitAll().and()
+            .addFilter(getAuthenticationFilter());
     }
 
     /**
@@ -36,8 +40,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     }
 
-    private AuthenticationFilter getAuthenticationFilter() throws Exception{
-        AuthenticationFilter authFilter = new AuthenticationFilter();
+    private AuthenticationFilter getAuthenticationFilter() throws Exception {
+        AuthenticationFilter authFilter = new AuthenticationFilter(userService, env);
         authFilter.setAuthenticationManager(authenticationManager());
 
         return authFilter;

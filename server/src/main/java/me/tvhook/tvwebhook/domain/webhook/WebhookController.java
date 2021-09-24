@@ -84,8 +84,9 @@ public class WebhookController {
         UpbitAccountDto bidAccount = chance.getBid_account();
         UpbitAccountDto askAccount = chance.getAsk_account();
 
-        if (webhook.getOrderId().equals(PositionType.LONG_BUY)) {
-            BigDecimal bidPrice = BigDecimal.valueOf(Long.parseLong(webhook.getBidAmount()));
+        if (webhook.getOrderAction().equals(ActionType.buy)) {
+            BigDecimal bidPrice = BigDecimal.valueOf(Long.parseLong(webhook.getBidRate()))
+                .multiply(user.getAllocatedKrw());
             int compareResult = bidAccount.getBalance().compareTo(bidPrice);
 
             if (bidAccount.getCurrency().equals("KRW") && compareResult >= 0) {
@@ -101,14 +102,14 @@ public class WebhookController {
 
             int compareResult = askAccount.getBalance().compareTo(BigDecimal.ZERO);
 
-            BigDecimal rate = BigDecimal.valueOf(Long.parseLong(webhook.getAskRate()));
-            BigDecimal bidVolume = rate.multiply(askAccount.getBalance());
+            BigDecimal askVolume = BigDecimal.valueOf(Long.parseLong(webhook.getAskRate()))
+                .multiply(askAccount.getBalance());
 
             if (compareResult > 0) {
                 OrderRequestDto orderReq = OrderRequestDto.builder()
                     .userId(user.getId())
                     .side(OrderSide.ask)
-                    .volume(bidVolume.toString())
+                    .volume(askVolume.toString())
                     .orderType(OrderType.market)
                     .build();
 

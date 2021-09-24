@@ -28,7 +28,7 @@ public class Webhook {
     private String exchange;
     private String timeframe;
 
-    private BigDecimal bidAmount; // KRW
+    private BigDecimal bidRate; // %
     private BigDecimal askRate; // %
 
     private String strategyName;

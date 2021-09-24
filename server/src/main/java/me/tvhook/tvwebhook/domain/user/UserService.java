@@ -31,17 +31,17 @@ public class UserService implements UserDetailsService {
         return foundUser;
     }
 
-    public List<UserDto> findAll(){
+    public List<UserDto> findAll() {
         List<User> results = userRepository.findAll();
         List<UserDto> users = new ArrayList<>();
-        results.forEach(user->{
+        results.forEach(user -> {
             users.add(modelMapper.map(user, UserDto.class));
         });
 
         return users;
     }
 
-    public UserDto createUser(CreateUserRequestDto createUserDto){
+    public UserDto createUser(CreateUserRequestDto createUserDto) {
         User user = modelMapper.map(createUserDto, User.class);
         user.setEncryptedPwd(encoder.encode(createUserDto.getPwd()));
         User savedUser = userRepository.save(user);
@@ -50,10 +50,20 @@ public class UserService implements UserDetailsService {
 
     }
 
+    public UserDto getUserDetailsByEmail(String email) {
+        User findUser = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException(email));
+
+        System.out.println("findUser = " + findUser);
+
+        return modelMapper.map(findUser, UserDto.class);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        User user = userRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException(email));
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException(email));
 
         return new org.springframework.security.core.userdetails.User(
             user.getEmail(),

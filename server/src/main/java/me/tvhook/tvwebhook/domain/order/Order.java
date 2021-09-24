@@ -46,8 +46,7 @@ public class Order {
 
 
     private String market;
-
-
+    
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 

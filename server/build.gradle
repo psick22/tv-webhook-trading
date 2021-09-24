@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -43,18 +44,18 @@ test {
 
 
 def querydslDir = "$buildDir/generated/querydsl"
-querydsl{
+querydsl {
     jpa = true
     querydslSourcesDir = querydslDir
 }
-sourceSets{
+sourceSets {
     main.java.srcDir querydslDir
 }
 
-configurations{
+configurations {
     querydsl.extendsFrom compileClasspath
 }
 
-compileQuerydsl{
+compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }

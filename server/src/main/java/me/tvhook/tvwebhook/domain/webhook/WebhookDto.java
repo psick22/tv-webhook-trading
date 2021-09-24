@@ -1,6 +1,5 @@
 package me.tvhook.tvwebhook.domain.webhook;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -20,15 +19,15 @@ public class WebhookDto {
     private String orderPrice;
 
 
-    private String bidAmount;
+    private String bidRate;
     private String askRate;
 
     public WebhookDto(WebhookType type, String username, String strategyName,
-        String bidAmount, String askRate) {
+        String bidRate, String askRate) {
         this.type = type;
         this.username = username;
         this.strategyName = strategyName;
-        this.bidAmount = bidAmount;
+        this.bidRate = bidRate;
         this.askRate = askRate;
         this.candleTime = "{{time}}";
         this.time = "{{timenow}}";
