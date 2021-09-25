@@ -9,6 +9,7 @@ import me.tvhook.tvwebhook.api.dto.UpbitAccountDto;
 import me.tvhook.tvwebhook.api.dto.UpbitOrderChanceResponseDto;
 import me.tvhook.tvwebhook.common.enums.OrderSide;
 import me.tvhook.tvwebhook.common.enums.OrderType;
+import me.tvhook.tvwebhook.domain.order.OrderDto;
 import me.tvhook.tvwebhook.domain.order.OrderRequestDto;
 import me.tvhook.tvwebhook.domain.order.OrderService;
 import me.tvhook.tvwebhook.domain.user.User;
@@ -40,11 +41,11 @@ public class WebhookController {
         @RequestParam(name = "type") WebhookType type,
         @RequestParam(name = "username") String username,
         @RequestParam(name = "strategyName", required = false) String strategyName,
-        @RequestParam(name = "bidAmount") String bidAmount,
+        @RequestParam(name = "bidRate") String bidRate,
         @RequestParam(name = "askRate") String askRate) {
 
         WebhookDto template = webhookService.generateMessageTemplate(username, type, strategyName,
-            bidAmount, askRate);
+            bidRate, askRate);
 
         if (type.equals(WebhookType.STRATEGY) && strategyName == null) {
             template.setStrategyName("My Strategy");
@@ -113,7 +114,9 @@ public class WebhookController {
                     .orderType(OrderType.market)
                     .build();
 
-                orderService.create(user, orderReq);
+                OrderDto orderDto = orderService.create(user, orderReq);
+
+
             }
         }
     }

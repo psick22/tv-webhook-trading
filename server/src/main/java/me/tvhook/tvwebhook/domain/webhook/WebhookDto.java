@@ -41,9 +41,9 @@ public class WebhookDto {
 
     public static WebhookDto generateTemplate(WebhookType type, String username,
         String strategyName,
-        String bidAmount, String askRate) {
+        String bidRate, String askRate) {
 
         return new WebhookDto(type, username, strategyName,
-            bidAmount, askRate);
+            bidRate, askRate);
     }
 }

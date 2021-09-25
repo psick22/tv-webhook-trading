@@ -14,14 +14,14 @@ public class WebhookService {
 
     public WebhookDto generateMessageTemplate(String username, WebhookType type,
         String strategyName,
-        String bidAmount,
+        String bidRate,
         String askRate) {
 
         WebhookDto template = generateTemplate(
             type,
             username,
             strategyName,
-            bidAmount,
+            bidRate,
             askRate
         );
 
