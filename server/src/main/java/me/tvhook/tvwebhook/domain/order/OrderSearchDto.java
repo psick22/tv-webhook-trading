@@ -9,4 +9,6 @@ public class OrderSearchDto {
 
     private String market;
 
+    private boolean open;
+
 }

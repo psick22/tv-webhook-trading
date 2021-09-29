@@ -1,6 +1,7 @@
 package me.tvhook.tvwebhook.domain.order;
 
 import com.querydsl.core.annotations.QueryProjection;
+import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ public class OrderDto {
     private OrderStatus status;
     private OrderType type;
     private OrderSide side;
+    private boolean open;
+    private BigDecimal funds;
 
     @Builder
     @QueryProjection

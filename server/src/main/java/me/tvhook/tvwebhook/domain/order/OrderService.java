@@ -1,5 +1,6 @@
 package me.tvhook.tvwebhook.domain.order;
 
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,8 @@ public class OrderService {
         UpbitOrderResponseDto response = upbit.postOrder(user, orderReq);
 
         Order newOrder = modelMapper.map(response, Order.class);
+        newOrder.setOpen(true);
+
         Order savedOrder = orderRepository.save(newOrder);
 
         OrderDto orderDto = modelMapper.map(savedOrder, OrderDto.class);

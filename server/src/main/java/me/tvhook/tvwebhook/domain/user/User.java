@@ -49,6 +49,8 @@ public class User {
 
     private BigDecimal allocatedKrw;
 
+    private BigDecimal lockedKrw;
+
 //    @OneToMany(mappedBy = "user")
 //    private List<Order> orders = new ArrayList<>();
 

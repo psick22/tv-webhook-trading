@@ -1,6 +1,7 @@
 package me.tvhook.tvwebhook.domain.order;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -16,7 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import me.tvhook.tvwebhook.common.enums.OrderSide;
 import me.tvhook.tvwebhook.common.enums.OrderStatus;
 import me.tvhook.tvwebhook.common.enums.OrderType;
@@ -26,6 +29,8 @@ import me.tvhook.tvwebhook.domain.user.User;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Setter
 public class Order {
 
     @Id
@@ -56,4 +61,10 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderSide side;
+
+
+    private boolean open;
+
+    private BigDecimal funds;
+
 }

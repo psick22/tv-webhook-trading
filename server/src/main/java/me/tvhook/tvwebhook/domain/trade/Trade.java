@@ -11,10 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 import me.tvhook.tvwebhook.common.enums.OrderSide;
 import me.tvhook.tvwebhook.domain.order.Order;
 
 @Entity
+@Getter
+@Setter
 public class Trade {
 
     @Id

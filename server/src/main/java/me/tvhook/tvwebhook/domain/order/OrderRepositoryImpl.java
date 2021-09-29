@@ -42,7 +42,11 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
 
     public BooleanBuilder orderSearchCondition(OrderSearchDto condition){
 
-        return userIdEq(condition.getUserId()).and(marketEq(condition.getMarket()));
+
+        return userIdEq(condition.getUserId())
+            .and(marketEq(condition.getMarket()))
+            .and(openEq(condition.isOpen()))
+            ;
 
     }
 
@@ -60,6 +64,10 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom{
     }
     private BooleanBuilder marketEq(String market){
         return nullSafeBuilder(()-> order.market.eq(market));
+    }
+
+    private BooleanBuilder openEq(boolean open){
+        return nullSafeBuilder(()-> order.open.eq(open));
     }
 
 
